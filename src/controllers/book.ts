@@ -1,5 +1,11 @@
 import knex from "../db";
+const Joi = require('joi'); // For input validation
 const bookTable = "books";
+
+const schema = Joi.object({
+  title: Joi.string().required(),
+  summary: Joi.string().required()
+});
 
 export const getBooks = async (req, res) => {
   const data = await knex(bookTable).select().where({});
@@ -18,13 +24,15 @@ export const getBookById = async (req, res) => {
 };
 
 export const postBook = async (req, res) => {
-  //get data from url
-  //const id = (await knex(userTable)).length;
-  console.log("Post book hitted");
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
   const title = req.body.title;
   const summary = req.body.summary;
 
-  //use knew to insert the new user
   try {
     const insertData = await knex(bookTable).insert({
       title: title,
@@ -40,6 +48,12 @@ export const postBook = async (req, res) => {
 };
 
 export const putBookById = async (req, res) => {
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  
   const { id } = req.params;
   const title = req.body.title;
   const summary = req.body.summary;

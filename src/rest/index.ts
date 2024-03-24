@@ -47,9 +47,54 @@ router.get("/user", getUsers);
  *         description: Not found.
  */
 router.get("/user/:id", getUserById);
+/**
+ * @openapi
+ * /rest/user:
+ *   post:
+ *     description: user post endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Created the record.
+ *       404:
+ *         description: Not found.
+ */
 router.post("/user", postUser);
+/**
+ * @openapi
+ * /rest/user/{id}:
+ *   put:
+ *     description: user put endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Updated the record.
+ *       404:
+ *         description: Not found.
+ */
 router.put("/user/:id", putUserById);
 /* router.patch("/user/:id", patchUserById);*/
+/**
+ * @openapi
+ * /rest/user/{id}:
+ *   delete:
+ *     description: user delete endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Deleted the record.
+ *       404:
+ *         description: Not found.
+ */
 router.delete("/user/:id", deleteUserById);
 
 //Books CRUD routes
@@ -81,9 +126,54 @@ router.get("/book", getBooks);
  *         description: Not found.
  */
 router.get("/book/:id", getBookById);
-router.post("/book/", postBook);
+/**
+ * @openapi
+ * /rest/book:
+ *   post:
+ *     description: book post endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Created the record.
+ *       404:
+ *         description: Not found.
+ */
+router.post("/book", postBook);
+/**
+ * @openapi
+ * /rest/book/{id}:
+ *   put:
+ *     description: book put endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Updated the record.
+ *       404:
+ *         description: Not found.
+ */
 router.put("/book/:id", putBookById);
 /*router.patch("/book/:id", patchBookById);*/
+/**
+ * @openapi
+ * /rest/book/{id}:
+ *   delete:
+ *     description: book delete endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Deleted the record.
+ *       404:
+ *         description: Not found.
+ */
 router.delete("/book/:id", deleteBookById);
 
 // Todo write the api handlers here below

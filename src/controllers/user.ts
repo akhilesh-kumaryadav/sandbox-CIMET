@@ -1,5 +1,12 @@
 import knex from "../db";
+const Joi = require('joi'); // For input validation
 const userTable = "users";
+
+const schema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  gender: Joi.string().required()
+});
 
 export const getUsers = async (req, res) => {
   const data = await knex(userTable).select().where({});
@@ -17,14 +24,16 @@ export const getUserById = async (req, res) => {
 };
 
 export const postUser = async (req, res) => {
-  //get data from url
-  //const id = (await knex(userTable)).length;
-  console.log("Post user hitted");
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const gender = req.body.gender;
 
-  //use knew to insert the new user
   try {
     const insertData = await knex(userTable).insert({
       firstName: firstName,
@@ -41,6 +50,12 @@ export const postUser = async (req, res) => {
 };
 
 export const putUserById = async (req, res) => {
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  
   const { id } = req.params;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
