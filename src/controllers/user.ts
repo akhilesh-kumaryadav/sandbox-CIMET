@@ -5,8 +5,8 @@ const Joi = require('joi'); // For input validation
 const userTable = "users";
 
 const schema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
+  givenName: Joi.string().required(),
+  familyName: Joi.string().required(),
   gender: Joi.string().required()
 });
 
@@ -32,14 +32,19 @@ export const postUser = async (req: Request, res: Response, next: NextFunction) 
     return res.status(400).json({ error: error.details[0].message });
   }
 
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
+  // Prioritize new field names but fall back to old ones if necessary
+  const givenName = req.body.givenName || req.body.firstName;
+  const familyName = req.body.familyName || req.body.lastName;
   const gender = req.body.gender;
+
+  if (!givenName || !familyName) {
+    return res.status(400).send('Missing name information');
+  }
 
   try {
     const insertData = await knex(userTable).insert({
-      firstName: firstName,
-      lastName: lastName,
+      firstName: givenName,
+      lastName: familyName,
       gender: gender,
     });
 
@@ -59,14 +64,19 @@ export const putUserById = async (req: Request, res: Response, next: NextFunctio
   }
   
   const { id } = req.params;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const gender = req.body.gender;
+  const givenName = req.body.givenName || req.body.firstName;
+  const familyName = req.body.familyName || req.body.lastName;
+  const gender = req.body.gender; 
+
+  if (!givenName || !familyName) {
+    return res.status(400).send('Missing name information');
+  }
+  
 
   try {
     const data = await knex(userTable).where({ id : id }).update({
-        firstName : firstName,
-        lastName : lastName,
+        firstName : givenName,
+        lastName : familyName,
         gender : gender,
       } ,[
         'id', 'firstName', "lastName", 'gender'
