@@ -1,4 +1,5 @@
 import knex from "../db";
+import { Request, Response, NextFunction } from "express";
 const Joi = require('joi'); // For input validation
 const bookTable = "books";
 
@@ -7,12 +8,12 @@ const schema = Joi.object({
   summary: Joi.string().required()
 });
 
-export const getBooks = async (req, res) => {
+export const getBooks = async (req: Request, res: Response, next: NextFunction) => {
   const data = await knex(bookTable).select().where({});
   return res.status(200).json({ data });
 };
 
-export const getBookById = async (req, res) => {
+export const getBookById = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   try {
@@ -23,7 +24,7 @@ export const getBookById = async (req, res) => {
   }
 };
 
-export const postBook = async (req, res) => {
+export const postBook = async (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -47,13 +48,13 @@ export const postBook = async (req, res) => {
   }
 };
 
-export const putBookById = async (req, res) => {
+export const putBookById = async (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
-  
+
   const { id } = req.params;
   const title = req.body.title;
   const summary = req.body.summary;
@@ -73,9 +74,9 @@ export const putBookById = async (req, res) => {
   }
 };
 
-export const patchBookById = async (req, res) => {};
+export const patchBookById = async (req: Request, res: Response, next: NextFunction) => {};
 
-export const deleteBookById = async (req, res) => {
+export const deleteBookById = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   try {

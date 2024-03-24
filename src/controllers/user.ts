@@ -1,4 +1,6 @@
 import knex from "../db";
+import { Request, Response, NextFunction } from "express";
+
 const Joi = require('joi'); // For input validation
 const userTable = "users";
 
@@ -8,12 +10,12 @@ const schema = Joi.object({
   gender: Joi.string().required()
 });
 
-export const getUsers = async (req, res) => {
+export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const data = await knex(userTable).select().where({});
   return res.status(200).json({ data });
 };
 
-export const getUserById = async (req, res) => {
+export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   try {
     const data = await knex(userTable).select().where({ id });
@@ -23,7 +25,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-export const postUser = async (req, res) => {
+export const postUser = async (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -49,7 +51,7 @@ export const postUser = async (req, res) => {
   }
 };
 
-export const putUserById = async (req, res) => {
+export const putUserById = async (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -77,9 +79,9 @@ export const putUserById = async (req, res) => {
   }
 };
 
-export const patchUserById = async (req, res) => {};
+export const patchUserById = async (req: Request, res: Response, next: NextFunction) => {};
 
-export const deleteUserById = async (req, res) => {
+export const deleteUserById = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   try {
