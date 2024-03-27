@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 
 const validApiKeys: string[] = ['api_key_1', 'api_key_2'];
 
-export const apiAuthMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+export const apiAuthMiddleware = (req: Request, _res: Response, next: NextFunction): void => {
     const apiKey = req.headers['api-key'];
 
     if (!apiKey || !validApiKeys.includes(apiKey as string)) {

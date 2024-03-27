@@ -8,12 +8,12 @@ const schema = Joi.object({
   summary: Joi.string().required()
 });
 
-export const getBooks = async (req: Request, res: Response, next: NextFunction) => {
+export const getBooks = async (_req: Request, res: Response, _next: NextFunction) => {
   const data = await knex(bookTable).select().where({});
   return res.status(200).json({ data });
 };
 
-export const getBookById = async (req: Request, res: Response, next: NextFunction) => {
+export const getBookById = async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.params;
 
   try {
@@ -24,7 +24,7 @@ export const getBookById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const postBook = async (req: Request, res: Response, next: NextFunction) => {
+export const postBook = async (req: Request, res: Response, _next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -42,13 +42,13 @@ export const postBook = async (req: Request, res: Response, next: NextFunction) 
 
     return res.status(201).json({ insertData });
   } catch (err) {
-    res
+    return res
       .status(500)
       .json({ error: "Unsuccessful attempt for creating the data" });
   }
 };
 
-export const putBookById = async (req: Request, res: Response, next: NextFunction) => {
+export const putBookById = async (req: Request, res: Response, _next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -74,9 +74,9 @@ export const putBookById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const patchBookById = async (req: Request, res: Response, next: NextFunction) => {};
+//export const patchBookById = async (req: Request, res: Response, next: NextFunction) => {};
 
-export const deleteBookById = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteBookById = async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.params;
 
   try {

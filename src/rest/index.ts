@@ -6,7 +6,7 @@ import {
   getUserById,
   postUser,
   putUserById,
-  patchUserById,
+  //patchUserById,
   deleteUserById,
 } from "../controllers/user";
 import {
@@ -14,7 +14,7 @@ import {
   getBookById,
   postBook,
   putBookById,
-  patchBookById,
+  //patchBookById,
   deleteBookById,
 } from "../controllers/book";
 

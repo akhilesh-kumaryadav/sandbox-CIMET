@@ -10,12 +10,12 @@ const schema = Joi.object({
   gender: Joi.string().required()
 });
 
-export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (_req: Request, res: Response, _next: NextFunction) => {
   const data = await knex(userTable).select().where({});
   return res.status(200).json({ data });
 };
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.params;
   try {
     const data = await knex(userTable).select().where({ id });
@@ -25,7 +25,7 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const postUser = async (req: Request, res: Response, next: NextFunction) => {
+export const postUser = async (req: Request, res: Response, _next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -50,13 +50,13 @@ export const postUser = async (req: Request, res: Response, next: NextFunction) 
 
     return res.status(201).json({ insertData });
   } catch (err) {
-    res
+    return res
       .status(500)
       .json({ error: "Unsuccessful attempt for creating the data" });
   }
 };
 
-export const putUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const putUserById = async (req: Request, res: Response, _next: NextFunction) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -89,9 +89,9 @@ export const putUserById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const patchUserById = async (req: Request, res: Response, next: NextFunction) => {};
+//export const patchUserById = async (req: Request, res: Response, next: NextFunction) => {};
 
-export const deleteUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteUserById = async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.params;
 
   try {

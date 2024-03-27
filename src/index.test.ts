@@ -7,9 +7,9 @@ beforeAll(() => {
   app = createApp(3001);
 });
 
-describe("Test demo API", () => {
-  test("get the 1st demo data", async () => {
-    const res = await request(app).get("/rest/demo/1");
+describe("Test user API", () => {
+  test("get the 1st user data", async () => {
+    const res = await request(app).get("/rest/user/1").set('api-key', 'api_key_1');;
     expect(res.body).toEqual({
       data: [{ id: 1, firstName: "John", lastName: "Doe", gender: "male" }],
     });
