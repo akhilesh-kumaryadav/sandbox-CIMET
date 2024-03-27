@@ -18,6 +18,10 @@ import {
   deleteBookById,
 } from "../controllers/book";
 
+import {
+  getAuthorsByBookId, getBooksByAuthorId
+} from "../controllers/userBook";
+
 //User CRUD routes
 /**
  * @openapi
@@ -176,7 +180,42 @@ router.put("/book/:id", putBookById);
  */
 router.delete("/book/:id", deleteBookById);
 
-// Todo write the api handlers here below
+// DB Migration
+// Get authors by book ID
+/**
+ * @openapi
+ * /rest/book/{id}/authors:
+ *   get:
+ *     description: authors by book ID endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Deleted the record.
+ *       404:
+ *         description: Not found.
+ */
+router.get('/book/:id/authors', getAuthorsByBookId);
+
+// Get books by author ID
+/**
+ * @openapi
+ * /rest/user/{id}/books:
+ *   get:
+ *     description: Get books by author ID endpoint!
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       201:
+ *         description: Deleted the record.
+ *       404:
+ *         description: Not found.
+ */
+router.get('/user/:id/books', getBooksByAuthorId);
 
 router.get("/", (_req, res) => {
   return res.json({ data: "Rest API page!" });

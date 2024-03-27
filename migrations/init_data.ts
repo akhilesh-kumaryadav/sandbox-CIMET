@@ -2,10 +2,12 @@ import { Knex } from "knex";
 
 const userTable = "users";
 const bookTable = "books";
+const authorBookTable = "authors_books"
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists(userTable);
   await knex.schema.dropTableIfExists(bookTable);
+  await knex.schema.dropTableIfExists(authorBookTable);
 
   await knex.schema.createTable(userTable, (table) => {
     table.increments("id").primary();
@@ -18,6 +20,13 @@ export async function up(knex: Knex): Promise<void> {
     table.increments("id").primary();
     table.string("title");
     table.string("summary");
+  });
+
+  await knex.schema.createTable(authorBookTable, table => {
+    table.increments('id').primary();
+    table.integer('user_id').unsigned().references('users.id');
+    table.integer('book_id').unsigned().references('books.id');
+    table.unique(['user_id', 'book_id']);
   });
 
   // Insert initial data
@@ -41,9 +50,23 @@ export async function up(knex: Knex): Promise<void> {
     { id: 4, title: "Book 4", summary: "Summary 4" },
     { id: 5, title: "Book 5", summary: "Summary 5" },
   ]);
+
+  await knex(authorBookTable).insert([
+    { id: 1, user_id: 1, book_id: 1},
+    { id: 2, user_id: 1, book_id: 2},
+    { id: 3, user_id: 1, book_id: 5},
+    { id: 4, user_id: 2, book_id: 1},
+    { id: 5, user_id: 2, book_id: 4},
+    { id: 6, user_id: 3, book_id: 3},
+    { id: 7, user_id: 4, book_id: 1},
+    { id: 8, user_id: 4, book_id: 5},
+    { id: 9, user_id: 5, book_id: 3},
+    { id: 10, user_id: 5, book_id: 4},
+  ]);
 }
 
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists(userTable);
   await knex.schema.dropTableIfExists(bookTable);
+  await knex.schema.dropTable(authorBookTable);
 }
