@@ -7,13 +7,26 @@ beforeAll(() => {
   app = createApp(3001);
 });
 
-describe("Test user API", () => {
+// User Test for getting user by id
+describe("Test for getting user by id", () => {
   test("get the 1st user data", async () => {
-    const res = await request(app).get("/rest/user/1").set('api-key', 'api_key_1');;
+    const res = await request(app).get("/rest/user/1").set('api-key', 'api_key_1');
+
+    expect(res.status).toBe(200);
     expect(res.body).toEqual({
       data: [{ id: 1, firstName: "John", lastName: "Doe", gender: "male" }],
     });
   });
 });
 
-// Todo: write tests here
+//Book test for getting book by id
+describe("Test for getting book by id", () => {
+  test("get the 1st book data", async () => {
+    const res = await request(app).get("/rest/book/1").set('api-key', 'api_key_1');
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      data: [{ id: 1, title: "Book 1", summary: "Summary 1" }],
+    });
+  });
+});
