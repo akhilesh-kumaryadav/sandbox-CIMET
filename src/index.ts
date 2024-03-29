@@ -1,14 +1,21 @@
 import express, { Request, Response, NextFunction } from "express";
+import {graphqlHTTP} from "express-graphql";
 
 import rest from "./rest";
 import { apiAuthMiddleware } from './middleware/apiAuthMiddleware';
+import schema from "./graphql/schema";
+import resolvers from "./graphql/resolvers";
+
 const app: express.Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use("/graphql", graphqlHTTP({
+  schema : schema,
+  rootValue : resolvers
+}));
 
-// app.use("/graphql", graphql);
 app.get("/", function (_req, res) {
   res.json({ data: "Read the README.md!" });
 });
