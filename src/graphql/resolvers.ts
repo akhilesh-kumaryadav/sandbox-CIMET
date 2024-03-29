@@ -13,13 +13,11 @@ const resolvers = {
     createUser: async ({ input }: { input: { firstName: string; lastName: string; gender: string } }) => {
         const [userId] = await knex(userTable).insert(input);
         const user = await knex(userTable).where('id', userId).first();
-        console.log(user)
         return user;
     },
     updateUser: async ({ id, input }: { id: number; input: { firstName: string; lastName: string; gender: string } }) => {
         await knex(userTable).where('id', id).update(input);
         const user = await knex(userTable).where('id', id).first();
-        console.log(user)
         return user;
     },
 }

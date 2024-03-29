@@ -5,8 +5,8 @@ const Joi = require('joi'); // For input validation
 const userTable = "users";
 
 const schema = Joi.object({
-  givenName: Joi.string().required(),
-  familyName: Joi.string().required(),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
   gender: Joi.string().required()
 });
 
