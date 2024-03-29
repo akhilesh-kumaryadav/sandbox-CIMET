@@ -6,8 +6,8 @@ const resolvers = {
         const user = await knex(userTable).where('id', id).first();
         return user;
     },
-    getUsers: async () => {
-        const users = await knex(userTable).select();
+    getUsers: async ({ limit, offset }: { limit: number; offset: number }) => {
+        const users = await knex(userTable).select().limit(limit).offset(offset);
         return users;
     },
     createUser: async ({ input }: { input: { firstName: string; lastName: string; gender: string } }) => {

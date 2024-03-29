@@ -17,7 +17,7 @@ const schema = buildSchema(`
 
     type Query {
         getUser(id: Int!): User
-        getUsers: [User]
+        getUsers(limit: Int!, offset: Int!): [User]
     }
 
     type Mutation {

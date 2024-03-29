@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 const Joi = require('joi'); // For input validation
 const userTable = "users";
+const PAGE_SIZE = 5; // Number of results per page
 
 const schema = Joi.object({
   firstName: Joi.string().required(),
@@ -10,8 +11,11 @@ const schema = Joi.object({
   gender: Joi.string().required()
 });
 
-export const getUsers = async (_req: Request, res: Response, _next: NextFunction) => {
-  const data = await knex(userTable).select().where({});
+export const getUsers = async (req: Request, res: Response, _next: NextFunction) => {
+  const { page = 1 } = req.query;
+  const offset = (parseInt(page.toString()) - 1) * PAGE_SIZE;
+
+  const data = await knex(userTable).select().where({}).limit(PAGE_SIZE).offset(offset);
   return res.status(200).json({ data });
 };
 

@@ -2,14 +2,18 @@ import knex from "../db";
 import { Request, Response, NextFunction } from "express";
 const Joi = require('joi'); // For input validation
 const bookTable = "books";
+const PAGE_SIZE = 3; // Number of results per page
 
 const schema = Joi.object({
   title: Joi.string().required(),
   summary: Joi.string().required()
 });
 
-export const getBooks = async (_req: Request, res: Response, _next: NextFunction) => {
-  const data = await knex(bookTable).select().where({});
+export const getBooks = async (req: Request, res: Response, _next: NextFunction) => {
+  const { page = 1 } = req.query;
+  const offset = (parseInt(page.toString()) - 1) * PAGE_SIZE;
+
+  const data = await knex(bookTable).select().where({}).limit(PAGE_SIZE).offset(offset);
   return res.status(200).json({ data });
 };
 
