@@ -4,6 +4,7 @@ const Joi = require('joi'); // For input validation
 const bookTable = "books";
 const PAGE_SIZE = 3; // Number of results per page
 
+// Schema of JOI for input validations
 const schema = Joi.object({
   title: Joi.string().required(),
   summary: Joi.string().required()

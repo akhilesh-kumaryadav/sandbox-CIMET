@@ -1,26 +1,11 @@
 import express from "express";
 const router = express.Router();
 
-import {
-  getUsers,
-  getUserById,
-  postUser,
-  putUserById,
-  //patchUserById,
-  deleteUserById,
-} from "../controllers/user";
-import {
-  getBooks,
-  getBookById,
-  postBook,
-  putBookById,
-  //patchBookById,
-  deleteBookById,
-} from "../controllers/book";
+import {getUsers, getUserById, postUser, putUserById, deleteUserById } from "../controllers/user";
 
-import {
-  getAuthorsByBookId, getBooksByAuthorId
-} from "../controllers/userBook";
+import {getBooks, getBookById, postBook, putBookById, deleteBookById } from "../controllers/book";
+
+import { getAuthorsByBookId, getBooksByAuthorId } from "../controllers/userBook";
 
 //User CRUD routes
 /**
@@ -217,6 +202,7 @@ router.get('/book/:id/authors', getAuthorsByBookId);
  */
 router.get('/user/:id/books', getBooksByAuthorId);
 
+// Root Route
 router.get("/", (_req, res) => {
   return res.json({ data: "Rest API page!" });
 });
