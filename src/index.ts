@@ -10,16 +10,6 @@ const app: express.Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use("/graphql", graphqlHTTP({
-  schema : schema,
-  rootValue : resolvers
-}));
-
-app.get("/", function (_req, res) {
-  res.json({ data: "Read the README.md!" });
-});
-
 app.use(apiAuthMiddleware);
 
 // Middleware for logging incoming requests
@@ -34,6 +24,13 @@ const requestLogger = (req: Request, res: Response, next: NextFunction): void =>
 
 app.use(requestLogger);
 app.use("/rest", rest);
+app.use("/graphql", graphqlHTTP({
+  schema : schema,
+  rootValue : resolvers
+}));
+app.get("/", function (_req, res) {
+  res.json({ data: "Read the README.md!" });
+});
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response) => {

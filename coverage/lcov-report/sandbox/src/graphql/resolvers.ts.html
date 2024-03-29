@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for sandbox/src/controllers/userBook.ts</title>
+    <title>Code coverage report for sandbox/src/graphql/resolvers.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">sandbox/src/controllers</a> userBook.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">sandbox/src/graphql</a> resolvers.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/14</span>
+                <span class='fraction'>4/18</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>4/18</span>
             </div>
         
             
@@ -86,53 +86,59 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import knex from "../db";
-import { Request, Response, NextFunction } from "express";
+const userTable = "users";
 &nbsp;
-const authorBookTable = "authors_books"
+const resolvers = {
+    getUser: <span class="fstat-no" title="function not covered" >async ({</span> id }: { id: number }) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
+        const user = <span class="cstat-no" title="statement not covered" >await knex(userTable).where('id', id).first();</span>
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    },
+    getUsers: <span class="fstat-no" title="function not covered" >async ({</span> limit, offset }: { limit: number; offset: number }) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
+        const users = <span class="cstat-no" title="statement not covered" >await knex(userTable).select().limit(limit).offset(offset);</span>
+<span class="cstat-no" title="statement not covered" >        return users;</span>
+    },
+    createUser: <span class="fstat-no" title="function not covered" >async ({</span> input }: { input: { firstName: string; lastName: string; gender: string } }) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
+        const [userId] = <span class="cstat-no" title="statement not covered" >await knex(userTable).insert(input);</span>
+        const user = <span class="cstat-no" title="statement not covered" >await knex(userTable).where('id', userId).first();</span>
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    },
+    updateUser: <span class="fstat-no" title="function not covered" >async ({</span> id, input }: { id: number; input: { firstName: string; lastName: string; gender: string } }) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
+<span class="cstat-no" title="statement not covered" >        await knex(userTable).where('id', id).update(input);</span>
+        const user = <span class="cstat-no" title="statement not covered" >await knex(userTable).where('id', id).first();</span>
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    },
+}
 &nbsp;
-export const getAuthorsByBookId = <span class="fstat-no" title="function not covered" >async (r</span>eq: Request, res: Response, _next: NextFunction) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-  const bookId = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-  const authors = <span class="cstat-no" title="statement not covered" >await knex(authorBookTable)</span>
-    .join('users', 'authors_books.user_id', 'users.id')
-    .where('authors_books.book_id', bookId)
-    .select('users.id', 'users.firstName');
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return res.status(200).json({ authors });</span>
-};
-&nbsp;
-export const getBooksByAuthorId = <span class="fstat-no" title="function not covered" >async (r</span>eq: Request, res: Response, _next: NextFunction) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-  const userId = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-  const books = <span class="cstat-no" title="statement not covered" >await knex(authorBookTable)</span>
-    .join('books', 'authors_books.book_id', 'books.id')
-    .where('authors_books.user_id', userId)
-    .select('books.id', 'books.title');
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return res.status(200).json({ books });</span>
-};</pre></td></tr></table></pre>
+export default resolvers;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
