@@ -9,10 +9,11 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
   next();
 };
 
-export const requestErrorLogger = (err: Error, req: Request, res: Response) => {
+export const requestErrorLogger = (err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);  // Log the stack trace for debugging
   const status = res.statusCode !== 200 ? res.statusCode : 500;
   const message = err.message || 'Internal Server Error';
   console.log(`${req.method} ${req.path} - Error: ${message} - Status: ${status} - Time: ${new Date().toISOString()}`);
-  res.status(status).send(message);
+  next();
+  //res.status(status).send(message);
 }
