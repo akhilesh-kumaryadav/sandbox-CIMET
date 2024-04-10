@@ -9,7 +9,7 @@ const API_KEY: string = process.env.API_KEY || '';
 export const apiAuthMiddleware = (req: Request, _res: Response, next: NextFunction): void => {
     const apiKey = req.headers['api-key'];
 
-    if (!apiKey || (apiKey != API_KEY)) {
+    if (!apiKey || (apiKey !== API_KEY)) {
         next(createHttpError(401, 'Unauthorized'));
         return;
     }

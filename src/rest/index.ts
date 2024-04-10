@@ -18,6 +18,14 @@ import { getAuthorsByBookId, getBooksByAuthorId } from "../controllers/userBook"
  *         description: Returns the record.
  *       404:
  *         description: Not found.
+ *   component:
+ *     securitySchemes:
+ *       ApiKeyAuth:
+ *         type: apiKey
+ *         in: header
+ *         name: api-key
+ *   security:
+ *     - ApiKeyAuth: []
  */
 router.get("/user", getUsers);
 /**
